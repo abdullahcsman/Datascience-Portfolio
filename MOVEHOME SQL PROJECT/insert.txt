@@ -1,0 +1,106 @@
+W21029971 >Insert into Manager_Tab values ('1', 'Karen', 'karen@gmail.com', 07878951344);
+
+1 row created.
+
+W21029971 >Insert into Manager_Tab values ('2', 'Paul', 'paul@gmail.com', 07678951344);
+
+1 row created.
+
+W21029971 >Insert into Manager_Tab values ('3', 'Lawson', 'lawson@gmail.com', 07678871344);
+
+1 row created.
+
+W21029971 >Insert into Manager_Tab values ('4', 'Jack', 'jack@gmail.com', 07678809344);
+
+1 row created.
+
+W21029971 >Insert into Staff_Tab values ('1', 'Abdullah', 'ab@gmail.com', 07878965432, 'Kingston', NULL);
+
+1 row created.
+
+W21029971 >Insert into Staff_Tab values ('2', 'Roy', 'roy@gmail.com', 07878923432, 'Fenham', NULL);
+
+1 row created.
+
+W21029971 >Insert into Staff_Tab values ('3', 'Mike Tyson', 'mike@gmail.com', 07878345432, 'Gateshead', NULL);
+
+1 row created.
+
+W21029971 >Insert into Staff_Tab values ('4', 'Talib', 'talib@gmail.com', 07878234122, 'Durham City', NULL);
+
+1 row created.
+
+W21029971 >Insert into Staff_Tab values ('5', 'Ben', 'ben@gmail.com', 07878123432, 'Fountain', NULL);
+
+1 row created.
+
+W21029971 >Insert into Branch_Tab values ('1', (select REF(m) from Manager_Tab m where m.id = '1'), 'abestates@gmail.com', 07878965432, 'Kingston Park', Staff_nt_type());
+
+1 row created.
+
+W21029971 >Insert into Branch_Tab values ('2', (select REF(m) from Manager_Tab m where m.id = '2'), 'durham@gmail.com', 07878965412, 'Fenham street', Staff_nt_type());
+
+1 row created.
+
+W21029971 >Insert into Branch_Tab values ('3', (select REF(m) from Manager_Tab m where m.id = '3'), 'johnest@gmail.com', 07878945432, 'Gateshead', Staff_nt_type());
+
+1 row created.
+
+W21029971 >Insert into Branch_Tab values ('4', (select REF(m) from Manager_Tab m where m.id = '14'), 'mkestates@gmail.com', 07878967732, 'South hilton', Staff_nt_type());
+
+1 row created.
+
+W21029971 >Update Staff_Tab
+  2  Set
+  3  Works_for = (select ref(b) from Branch_Tab b where b.code = '1') where staff_id = '1';
+
+1 row updated.
+
+W21029971 >Update Staff_Tab
+  2  Set
+  3  Works_for = (select ref(b) from Branch_Tab b where b.code = '1') where staff_id = '2';
+
+1 row updated.
+
+W21029971 >Update Staff_Tab
+  2  Set
+  3  Works_for = (select ref(b) from Branch_Tab b where b.code = '2') where staff_id = '3';
+
+1 row updated.
+
+W21029971 >Update Staff_Tab
+  2  Set
+  3  Works_for = (select ref(b) from Branch_Tab b where b.code = '3') where staff_id = '4';
+
+1 row updated.
+
+W21029971 >Update Staff_Tab
+  2  Set
+  3  Works_for = (select ref(b) from Branch_Tab b where b.code = '4') where staff_id = '5';
+
+1 row updated.
+
+W21029971 >INSERT INTO TABLE (Select b.Staff from Branch_Tab b where b.code = '1')
+  2  SELECT REF(e) from Staff_Tab e where e.works_for.code = '1';
+
+2 rows created.
+
+W21029971 >
+W21029971 >INSERT INTO TABLE (Select b.Staff from Branch_Tab b where b.code = '2')
+  2  SELECT REF(e) from Staff_Tab e where e.works_for.code = '2';
+
+1 row created.
+
+W21029971 >
+W21029971 >INSERT INTO TABLE (Select b.Staff from Branch_Tab b where b.code = '3')
+  2  SELECT REF(e) from Staff_Tab e where e.works_for.code = '3';
+
+1 row created.
+
+W21029971 >
+W21029971 >INSERT INTO TABLE (Select b.Staff from Branch_Tab b where b.code = '4')
+  2  SELECT REF(e) from Staff_Tab e where e.works_for.code = '4';
+
+1 row created.
+
+W21029971 >spool off;

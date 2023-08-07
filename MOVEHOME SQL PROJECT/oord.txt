@@ -1,0 +1,66 @@
+W21029971 >CREATE Type Branch_t
+  2  /
+
+Type created.
+
+W21029971 >CREATE Type Staff_t AS Object
+  2  (staff_id CHAR(2),
+  3  name VARCHAR(10),
+  4  email VARCHAR(20),
+  5  phone_number NUMBER(11),
+  6  address VARCHAR(20),
+  7  Works_for REF Branch_t)
+  8  /
+
+Type created.
+
+W21029971 >CREATE TYPE Staff_nt_type as Table of REF Staff_t
+  2  /
+
+Type created.
+
+W21029971 >CREATE Type Manager_t as Object
+  2  (id CHAR(2),
+  3   name VARCHAR(20),
+  4   email VARCHAR(20),
+  5   phone_number NUMBER(11)
+  6  )
+  7  /
+
+Type created.
+
+W21029971 >CREATE OR REPLACE Type Branch_t as Object
+  2  (code CHAR(2),
+  3  manager_ref REF Manager_t,
+  4  email VARCHAR(20),
+  5  phone_number NUMBER(11),
+  6  headquater VARCHAR(20),
+  7  Staff Staff_nt_type)
+  8  /
+
+Type created.
+
+W21029971 >Create Table Branch_Tab of Branch_t
+  2  (primary key (code))
+  3   Nested Table Staff Store As Branch_Staff_NTab;
+
+Table created.
+
+W21029971 >Create Table Manager_Tab of Manager_t
+  2  (primary key (id))
+  3  /
+
+Table created.
+
+W21029971 >Create Table Staff_Tab of Staff_t
+  2  (primary key (staff_id))
+  3  /
+
+Table created.
+
+W21029971 >Alter table Staff_tab Add constraint Branch_REF_FK Foreign Key (works_for) References Branch_Tab
+  2  /
+
+Table altered.
+
+W21029971 >spool off
